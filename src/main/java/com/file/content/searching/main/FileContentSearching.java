@@ -8,55 +8,105 @@ import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.file.content.searching.service.impl.ReadFileUsingBufferReader;
 import com.file.content.searching.service.impl.ReadFileUsingScanners;
 import com.file.content.searching.service.impl.ReadFileUsingStreams;
-import com.file.content.searching.utils.Utility;
 
+/**
+ * This class is an entry point where user is given an option to choose type of reader and file name.
+ * 
+ * Case:1 = ReadFileUsingStreams
+ * Case:2 = ReadFileUsingScanners
+ * Case:3 = ReadFileUsingBufferReader
+ * 
+ */
 public class FileContentSearching {
 
 	private static Logger log = LogManager.getLogger(FileContentSearching.class);
 
 	public static void main(String[] args) throws IOException {
-
+		
+		log.info("Option 1 - Run with ReadFileUsingStreams");
+		log.info("Option 2 - Run with ReadFileUsingScanner");
+		log.info("Option 3 - Run with ReadFileUsingBufferReader");
+		
 		Scanner scanner = new Scanner(System.in);
-		log.info("Enter filename with full path :");
+		log.info("Enter option :");
 
+		String option = scanner.nextLine();
+		
+		log.info("Enter file name with full path :");
+		
 		String filePathWithFileName = scanner.nextLine();
-		log.info("filePathWithFileName is: {}", filePathWithFileName);
-
+		
 		scanner.close();
+		
+		switch(option)
+		{
+		    case "1":
+		    	
+		    	log.info("==================== ReadFileUsingStreams ======================");
+		    	
+		    	ReadFileUsingStreams readFileUsingStreams = new ReadFileUsingStreams();
 
-		ReadFileUsingStreams readFileUsingStreams = new ReadFileUsingStreams();
+				Instant startTime = Instant.now();
 
-		Instant startTime = Instant.now();
+				readFileUsingStreams.getStringPositionDetailsForInputText(filePathWithFileName);
 
-		Utility.logMemory();
+				Instant endTime = Instant.now();
+				
+				long timeElapsedLineCount = Duration.between(startTime, endTime).toMillis();
 
-		readFileUsingStreams.getStringPositionDetailsForInputText(filePathWithFileName);
+				log.info("ReadFileUsingStreams :: timeElapsedLineCount {} millis", timeElapsedLineCount);
 
-		Instant endTime = Instant.now();
-		long timeElapsedLineCount = Duration.between(startTime, endTime).toMillis();
+				log.info("==================================================================");
+				
+			    break;
+			    
+		    case "2":
+		    	
+		    	log.info("==================== ReadFileUsingScanners ======================");
+		    	
+		    	ReadFileUsingScanners readFileUsingScanners = new ReadFileUsingScanners();
 
-		Utility.logMemory();
+				startTime = Instant.now();
 
-		log.info("ReadFileUsingStreams :: timeElapsedLineCount {} millis", timeElapsedLineCount);
+				readFileUsingScanners.getStringPositionDetailsForInputText(filePathWithFileName);
 
-		log.info("\n\n");
+				endTime = Instant.now();
+				
+				timeElapsedLineCount = Duration.between(startTime, endTime).toMillis();
 
-		ReadFileUsingScanners readFileUsingScanners = new ReadFileUsingScanners();
+				log.info("ReadFileUsingScanners :: timeElapsedLineCount {} millis", timeElapsedLineCount);/**/
+				
+				log.info("==================================================================");
+				
+			    break;
+			    
+		    case "3":
+		    	
+		    	log.info("==================== ReadFileUsingBufferReader ======================");
+		    	
+		    	ReadFileUsingBufferReader readFileUsingBufferReader = new ReadFileUsingBufferReader();
 
-		startTime = Instant.now();
+				startTime = Instant.now();
 
-		Utility.logMemory();
+				readFileUsingBufferReader.getStringPositionDetailsForInputText(filePathWithFileName);
 
-		readFileUsingScanners.getStringPositionDetailsForInputText(filePathWithFileName);
+				endTime = Instant.now();
+				
+				timeElapsedLineCount = Duration.between(startTime, endTime).toMillis();
 
-		endTime = Instant.now();
-		timeElapsedLineCount = Duration.between(startTime, endTime).toMillis();
-
-		Utility.logMemory();
-
-		log.info("ReadFileUsingScanners :: timeElapsedLineCount {} millis", timeElapsedLineCount);
+				log.info("ReadFileUsingBufferReader :: timeElapsedLineCount {} millis", timeElapsedLineCount);
+				
+			    break;
+		    
+		    default:
+		    	
+		    	log.info("Invalid option");
+		    	
+		    	break;
+		}
 
 	}
 

@@ -1,13 +1,11 @@
 package com.file.content.searching.service.impl;
 
-import java.io.FileInputStream;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -22,12 +20,12 @@ import com.file.content.searching.service.helper.ServiceHelper;
 import com.file.content.searching.utils.RegexGroupEnum;
 
 /**
- * This class will process the user input file based on Scanners
+ * This class will process the user input file based on Buffered Reader
  *
  */
-public class ReadFileUsingScanners implements ReadFileContent {
-
-	private static Logger log = LogManager.getLogger(ReadFileUsingScanners.class);
+public class ReadFileUsingBufferReader implements ReadFileContent {
+	
+	private static Logger log = LogManager.getLogger(ReadFileUsingBufferReader.class);
 
 	/**
 	 * 
@@ -42,22 +40,21 @@ public class ReadFileUsingScanners implements ReadFileContent {
 		
 		List<SearchTextResponseBean> searchTextResponseBeanList = new ArrayList<>();
 		
-		try(InputStream inputStream = new FileInputStream(filePathWithFileName);
-				Scanner fileScanner = new Scanner(inputStream, StandardCharsets.UTF_8.name())) {
-			
+		try (BufferedReader fileBufferReader = new BufferedReader(new FileReader(filePathWithFileName))) {
+            
 			AtomicInteger lineCounter = new AtomicInteger(0);
-			
-			while(fileScanner.hasNextLine()){
-				
+            
+			while (fileBufferReader.readLine() != null) {
+                
 				lineCounter.incrementAndGet();
 				
-				String fileContent = fileScanner.nextLine();
+				String fileLineContent = fileBufferReader.readLine();
 				
-				if(StringUtils.isNotBlank(fileContent)) {
+				if(StringUtils.isNotBlank(fileLineContent)) {
 					
 					EnumSet.allOf(RegexGroupEnum.class).forEach(enumValues -> {
 						
-						List<SearchTextResponseBean> intermediaryResponseList = ServiceHelper.validatePatternAndSetPositionDetails(enumValues.getRegexPattern(), enumValues.getMatcherGroup(), lineCounter, fileContent);
+						List<SearchTextResponseBean> intermediaryResponseList = ServiceHelper.validatePatternAndSetPositionDetails(enumValues.getRegexPattern(), enumValues.getMatcherGroup(), lineCounter, fileLineContent);
 						
 						if(CollectionUtils.isNotEmpty(intermediaryResponseList)) {
 							
@@ -66,14 +63,16 @@ public class ReadFileUsingScanners implements ReadFileContent {
 					});
 				}
             }
-		
+			
 			//log.info("Response via ReadFileUsingScanners : {}", new ObjectMapper().writeValueAsString(searchTextResponseBeanList));
 			
-		} catch(Exception exception) {
+        } catch(Exception exception) {
 	    	
 	    	log.error("Exception in processing the file via ReadFileUsingScanners : ",exception);
 	    }
+		
 	}
 	
 	
+
 }

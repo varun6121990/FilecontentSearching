@@ -3,6 +3,10 @@ package com.file.content.searching.utils;
 import java.util.Arrays;
 import java.util.Optional;
 
+/**
+ * This enum contains regex pattern and with its corresponding matcher group location 
+ *
+ */
 public enum RegexGroupEnum {
 
 	HOURS_REGEX("(\\s)(\\d\\d)(\\s)", 2),

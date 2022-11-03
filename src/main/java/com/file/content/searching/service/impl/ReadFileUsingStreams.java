@@ -15,16 +15,25 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.file.content.searching.bean.SearchTextResponseBean;
 import com.file.content.searching.service.defn.ReadFileContent;
 import com.file.content.searching.service.helper.ServiceHelper;
 import com.file.content.searching.utils.RegexGroupEnum;
 
+/**
+ * This class will process the user input file based on Streams Files.lines(...)
+ *
+ */
 public class ReadFileUsingStreams implements ReadFileContent {
 	
 	private static Logger log = LogManager.getLogger(ReadFileUsingStreams.class);
 	
 	/**
+	 * 
+	 * This method will get the file name with its full path as input and process lines of file
+	 * against regex and prints the json response of search text and its corresponding positions
+	 * 
 	 * @param filePathWithFileName
 	 * @throws IOException
 	 */
@@ -55,7 +64,7 @@ public class ReadFileUsingStreams implements ReadFileContent {
 				}
 			});
 			
-			//log.info("Response via ReadFileUsingStreams : {}", new ObjectMapper().writeValueAsString(searchTextResponseBeanList));
+			log.info("Response via ReadFileUsingStreams : {}", new ObjectMapper().writeValueAsString(searchTextResponseBeanList));
 	        
 	    } catch(Exception exception) {
 	    	
