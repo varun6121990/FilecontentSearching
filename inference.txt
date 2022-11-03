@@ -1,0 +1,67 @@
+File Size = 49 MB
+
+2022-11-03 22:38:57 INFO  FileContentSearching:21 - Option 1 - Run with ReadFileUsingStreams
+2022-11-03 22:38:57 INFO  FileContentSearching:22 - Option 2 - Run with ReadFileUsingScanner
+2022-11-03 22:38:57 INFO  FileContentSearching:23 - Option 3 - Run with ReadFileUsingBufferReader
+2022-11-03 22:38:57 INFO  FileContentSearching:26 - Enter option :
+1
+2022-11-03 22:39:00 INFO  FileContentSearching:30 - Enter file name with full path :
+/Users/vseeema690/Documents/Varun/TEMP/test1-49MB.txt
+2022-11-03 22:39:02 INFO  FileContentSearching:40 - ==================== ReadFileUsingStreams ======================
+2022-11-03 22:39:05 INFO  FileContentSearching:52 - ReadFileUsingStreams :: timeElapsedLineCount 3335 millis
+2022-11-03 22:39:05 INFO  FileContentSearching:54 - ==================================================================
+
+2022-11-03 22:39:41 INFO  FileContentSearching:21 - Option 1 - Run with ReadFileUsingStreams
+2022-11-03 22:39:41 INFO  FileContentSearching:22 - Option 2 - Run with ReadFileUsingScanner
+2022-11-03 22:39:41 INFO  FileContentSearching:23 - Option 3 - Run with ReadFileUsingBufferReader
+2022-11-03 22:39:41 INFO  FileContentSearching:26 - Enter option :
+2
+2022-11-03 22:39:43 INFO  FileContentSearching:30 - Enter file name with full path :
+/Users/vseeema690/Documents/Varun/TEMP/test1-49MB.txt
+2022-11-03 22:39:45 INFO  FileContentSearching:60 - ==================== ReadFileUsingScanners ======================
+2022-11-03 22:39:49 INFO  FileContentSearching:72 - ReadFileUsingScanners :: timeElapsedLineCount 4694 millis
+2022-11-03 22:39:49 INFO  FileContentSearching:74 - ==================================================================
+
+2022-11-03 22:40:35 INFO  FileContentSearching:21 - Option 1 - Run with ReadFileUsingStreams
+2022-11-03 22:40:35 INFO  FileContentSearching:22 - Option 2 - Run with ReadFileUsingScanner
+2022-11-03 22:40:35 INFO  FileContentSearching:23 - Option 3 - Run with ReadFileUsingBufferReader
+2022-11-03 22:40:35 INFO  FileContentSearching:26 - Enter option :
+3
+2022-11-03 22:40:37 INFO  FileContentSearching:30 - Enter file name with full path :
+/Users/vseeema690/Documents/Varun/TEMP/test1-49MB.txt
+2022-11-03 22:40:40 INFO  FileContentSearching:80 - ==================== ReadFileUsingBufferReader ======================
+2022-11-03 22:40:41 INFO  FileContentSearching:92 - ReadFileUsingBufferReader :: timeElapsedLineCount 1276 millis
+
+File Size = 98 MB
+
+2022-11-03 23:17:06 INFO  FileContentSearching:29 - Option 1 - Run with ReadFileUsingStreams
+2022-11-03 23:17:06 INFO  FileContentSearching:30 - Option 2 - Run with ReadFileUsingScanner
+2022-11-03 23:17:06 INFO  FileContentSearching:31 - Option 3 - Run with ReadFileUsingBufferReader
+2022-11-03 23:17:06 INFO  FileContentSearching:34 - Enter option :
+1
+2022-11-03 23:17:08 INFO  FileContentSearching:38 - Enter file name with full path :
+/Users/vseeema690/Documents/Varun/TEMP/test2-98MB.txt
+2022-11-03 23:17:09 INFO  FileContentSearching:48 - ==================== ReadFileUsingStreams ======================
+2022-11-03 23:17:16 INFO  FileContentSearching:60 - ReadFileUsingStreams :: timeElapsedLineCount 6555 millis
+2022-11-03 23:17:16 INFO  FileContentSearching:62 - ==================================================================
+
+2022-11-03 23:17:55 INFO  FileContentSearching:29 - Option 1 - Run with ReadFileUsingStreams
+2022-11-03 23:17:55 INFO  FileContentSearching:30 - Option 2 - Run with ReadFileUsingScanner
+2022-11-03 23:17:55 INFO  FileContentSearching:31 - Option 3 - Run with ReadFileUsingBufferReader
+2022-11-03 23:17:55 INFO  FileContentSearching:34 - Enter option :
+2
+2022-11-03 23:17:57 INFO  FileContentSearching:38 - Enter file name with full path :
+/Users/vseeema690/Documents/Varun/TEMP/test2-98MB.txt
+2022-11-03 23:18:41 INFO  FileContentSearching:68 - ==================== ReadFileUsingScanners ======================
+2022-11-03 23:18:50 INFO  FileContentSearching:80 - ReadFileUsingScanners :: timeElapsedLineCount 8981 millis
+2022-11-03 23:18:50 INFO  FileContentSearching:82 - ==================================================================
+
+2022-11-03 23:19:18 INFO  FileContentSearching:29 - Option 1 - Run with ReadFileUsingStreams
+2022-11-03 23:19:18 INFO  FileContentSearching:30 - Option 2 - Run with ReadFileUsingScanner
+2022-11-03 23:19:18 INFO  FileContentSearching:31 - Option 3 - Run with ReadFileUsingBufferReader
+2022-11-03 23:19:18 INFO  FileContentSearching:34 - Enter option :
+3
+2022-11-03 23:19:19 INFO  FileContentSearching:38 - Enter file name with full path :
+/Users/vseeema690/Documents/Varun/TEMP/test2-98MB.txt
+2022-11-03 23:19:21 INFO  FileContentSearching:88 - ==================== ReadFileUsingBufferReader ======================
+2022-11-03 23:19:24 INFO  FileContentSearching:100 - ReadFileUsingBufferReader :: timeElapsedLineCount 2587 millis
