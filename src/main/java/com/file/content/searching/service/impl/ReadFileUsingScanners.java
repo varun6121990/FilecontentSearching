@@ -1,17 +1,17 @@
 package com.file.content.searching.service.impl;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Objects;
+import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Stream;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,28 +20,27 @@ import com.file.content.searching.service.defn.ReadFileContent;
 import com.file.content.searching.service.helper.ServiceHelper;
 import com.file.content.searching.utils.RegexGroupEnum;
 
-public class ReadFileUsingStreams implements ReadFileContent {
-	
-	private static Logger log = LogManager.getLogger(ReadFileUsingStreams.class);
-	
-	/**
-	 * @param filePathWithFileName
-	 * @throws IOException
-	 */
+public class ReadFileUsingScanners implements ReadFileContent {
+
+	private static Logger log = LogManager.getLogger(ReadFileUsingScanners.class);
+
 	@Override
 	public void getStringPositionDetailsForInputText(String filePathWithFileName) throws IOException {
 		
 		List<SearchTextResponseBean> searchTextResponseBeanList = new ArrayList<>();
 		
-		try(Stream<String> inputStream = Files.lines(Paths.get(filePathWithFileName), StandardCharsets.UTF_8)) {
+		try(InputStream inputStream = new FileInputStream(filePathWithFileName);
+				Scanner fileScanner = new Scanner(inputStream, StandardCharsets.UTF_8.name())) {
 			
 			AtomicInteger lineCounter = new AtomicInteger(0);
 			
-			inputStream.forEachOrdered(fileContent -> {
+			while(fileScanner.hasNextLine()){
 				
 				lineCounter.incrementAndGet();
 				
-				if(Objects.nonNull(fileContent)) {
+				String fileContent = fileScanner.nextLine();
+				
+				if(StringUtils.isNotBlank(fileContent)) {
 					
 					EnumSet.allOf(RegexGroupEnum.class).forEach(enumValues -> {
 						
@@ -53,14 +52,15 @@ public class ReadFileUsingStreams implements ReadFileContent {
 						}
 					});
 				}
-			});
+            }
+		
+			//log.info("Response via ReadFileUsingScanners : {}", new ObjectMapper().writeValueAsString(searchTextResponseBeanList));
 			
-			//log.info("Response via ReadFileUsingStreams : {}", new ObjectMapper().writeValueAsString(searchTextResponseBeanList));
-	        
-	    } catch(Exception exception) {
+		} catch(Exception exception) {
 	    	
-	    	log.error("Exception in processing the file via ReadFileUsingStreams : ",exception);
+	    	log.error("Exception in processing the file via ReadFileUsingScanners : ",exception);
 	    }
 	}
-
+	
+	
 }
