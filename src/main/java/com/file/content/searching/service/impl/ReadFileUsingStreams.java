@@ -64,7 +64,7 @@ public class ReadFileUsingStreams implements ReadFileContent {
 				}
 			});
 			
-			log.info("Response via ReadFileUsingStreams : {}", new ObjectMapper().writeValueAsString(searchTextResponseBeanList));
+			//log.info("Response via ReadFileUsingStreams : {}", new ObjectMapper().writeValueAsString(searchTextResponseBeanList));
 	        
 	    } catch(Exception exception) {
 	    	
