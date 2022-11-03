@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.Duration;
-import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -14,13 +14,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.file.content.searching.bean.PositionDetailsBean;
 import com.file.content.searching.bean.SearchTextResponseBean;
-import com.file.content.searching.utils.Utility;
+import com.file.content.searching.utils.RegexGroupEnum;
 
 public class ReadFileUsingStreams {
 	
@@ -34,13 +35,7 @@ public class ReadFileUsingStreams {
 		
 		List<SearchTextResponseBean> searchTextResponseBeanList = new ArrayList<>();
 		
-		Instant startTime = Instant.now();
-		
-		Utility.logMemory();
-		
 		try(Stream<String> inputStream = Files.lines(Paths.get(filePathWithFileName), StandardCharsets.UTF_8)) {
-			
-			Utility.logMemory();
 			
 			AtomicInteger lineCounter = new AtomicInteger(0);
 			
@@ -50,24 +45,17 @@ public class ReadFileUsingStreams {
 				
 				if(Objects.nonNull(fileContent)) {
 					
-					Utility.regexPatternList.forEach(regexString -> {
+					EnumSet.allOf(RegexGroupEnum.class).forEach(enumValues -> {
 						
-						SearchTextResponseBean searchTextResponseBean = validatePatternAndSetPositionDetails(regexString, lineCounter, fileContent);
+						List<SearchTextResponseBean> intermediaryResponseList = validatePatternAndSetPositionDetails(enumValues.getRegexPattern(), enumValues.getMatcherGroup(), lineCounter, fileContent);
 						
-						if(Objects.nonNull(searchTextResponseBean)) {
+						if(CollectionUtils.isNotEmpty(intermediaryResponseList)) {
 							
-							searchTextResponseBeanList.add(searchTextResponseBean);
+							searchTextResponseBeanList.addAll(intermediaryResponseList);
 						}
 					});
 				}
 			});
-			
-			Instant endTime = Instant.now();
-			long timeElapsedLineCount = Duration.between(startTime, endTime).toMillis();
-			
-			Utility.logMemory();
-			
-			log.info("timeElapsedLineCount {} millis",timeElapsedLineCount);
 			
 			log.info("Response via ReadFileUsingStreams : {}", new ObjectMapper().writeValueAsString(searchTextResponseBeanList));
 	        
@@ -79,38 +67,41 @@ public class ReadFileUsingStreams {
 
 	/**
 	 * @param regexPattern
+	 * @param matcherGroupPosition 
 	 * @param lineCounter
 	 * @param fileContent
 	 * @return
 	 */
-	private SearchTextResponseBean validatePatternAndSetPositionDetails(String regexPattern, AtomicInteger lineCounter, String fileContent) {
+	private List<SearchTextResponseBean> validatePatternAndSetPositionDetails(String regexPattern, int matcherGroupPosition, AtomicInteger lineCounter, String fileContent) {
 		
 		Pattern pattern = Pattern.compile(regexPattern);
 		Matcher matcher = pattern.matcher(fileContent);
 		
-		//if(matcher.find()) {
+		if(matcher.find()) {
 		
-			List<PositionDetailsBean> positionDetailsBeanList = new ArrayList<>();
-			SearchTextResponseBean searchTextResponseBean = new SearchTextResponseBean();
+			matcher.reset();
+			
+			List<SearchTextResponseBean> intermediaryResponseList = new ArrayList<>();
 			
 			while(matcher.find()) {
 			    
-				searchTextResponseBean.setSearchText(matcher.group());
+				SearchTextResponseBean searchTextResponseBean = new SearchTextResponseBean();
+				searchTextResponseBean.setSearchText(matcher.group(matcherGroupPosition));
 				
 			    PositionDetailsBean positionDetailsBean = new PositionDetailsBean();
 				positionDetailsBean.setLineNumber(lineCounter.get());
-				positionDetailsBean.setStartingPosition(matcher.start());
-				positionDetailsBean.setEndingPosition(matcher.end());
+				positionDetailsBean.setStartingPosition(matcher.start(matcherGroupPosition));
+				positionDetailsBean.setEndingPosition(matcher.end(matcherGroupPosition));
 				
-				positionDetailsBeanList.add(positionDetailsBean);
+				searchTextResponseBean.setPositionDetailsBean(positionDetailsBean);
+				
+				intermediaryResponseList.add(searchTextResponseBean);
 			}
 			
-			searchTextResponseBean.setPositionDetailsBeanList(positionDetailsBeanList);
-			
-			return searchTextResponseBean;
-		//}
+			return intermediaryResponseList;
+		}
 		
-		//return null;
+		return Collections.emptyList();
 	}
 
 }

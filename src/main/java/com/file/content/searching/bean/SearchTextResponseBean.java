@@ -1,7 +1,5 @@
 package com.file.content.searching.bean;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
@@ -18,7 +16,7 @@ public class SearchTextResponseBean {
 	@JsonProperty("searchText")
 	private String searchText;
 	
-	@JsonProperty("positionDetailsBeanList")
-	private List<PositionDetailsBean> positionDetailsBeanList;
+	@JsonProperty("positionDetailsBean")
+	private PositionDetailsBean positionDetailsBean;
 
 }
