@@ -1,5 +1,5 @@
 # FilecontentSearching
-## FilecontentSearching - Searching specific patterns from file based on regex and display its starting and end position
+## FilecontentSearching - Searching specific patterns from file based on regex and display its starting and ending position
 
 * Language used -> Java 1.8+ *
 
