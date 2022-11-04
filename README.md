@@ -26,16 +26,19 @@ Inputs required -> Options (1,2,3) = denotes the type of reader and FileName wit
 
 Sample input and output:
 
-2022-11-03 22:38:57 INFO  FileContentSearching:21 - Option 1 - Run with ReadFileUsingStreams
-2022-11-03 22:38:57 INFO  FileContentSearching:22 - Option 2 - Run with ReadFileUsingScanner
-2022-11-03 22:38:57 INFO  FileContentSearching:23 - Option 3 - Run with ReadFileUsingBufferReader
-2022-11-03 22:38:57 INFO  FileContentSearching:26 - Enter option :
+Note: To see the output, first enable the log statement in any one of the reader class. By default output log statement will be commented.
+
+2022-11-04 10:30:14 INFO  FileContentSearching:29 - Option 1 - Run with ReadFileUsingStreams
+2022-11-04 10:30:14 INFO  FileContentSearching:30 - Option 2 - Run with ReadFileUsingScanner
+2022-11-04 10:30:14 INFO  FileContentSearching:31 - Option 3 - Run with ReadFileUsingBufferReader
+2022-11-04 10:30:14 INFO  FileContentSearching:34 - Enter option :
 1
-2022-11-03 22:39:00 INFO  FileContentSearching:30 - Enter file name with full path :
-/Users/vseeema690/Documents/Varun/TEMP/test1-49MB.txt
-2022-11-03 22:39:02 INFO  FileContentSearching:40 - ==================== ReadFileUsingStreams ======================
-2022-11-03 22:39:05 INFO  FileContentSearching:52 - ReadFileUsingStreams :: timeElapsedLineCount 3335 millis
-2022-11-03 22:39:05 INFO  FileContentSearching:54 - ==================================================================
+2022-11-04 10:30:16 INFO  FileContentSearching:38 - Enter file name with full path :
+/Users/vseeema690/Documents/Varun/TEMP/testing.txt
+2022-11-04 10:30:18 INFO  FileContentSearching:48 - ==================== ReadFileUsingStreams ======================
+2022-11-04 10:30:18 INFO  ReadFileUsingStreams:67 - Response via ReadFileUsingStreams : [{"searchText":"24","positionDetailsBean":{"lineNumber":1,"startingPosition":91,"endingPosition":93}},{"searchText":"28.84.060","positionDetailsBean":{"lineNumber":2,"startingPosition":80,"endingPosition":89}},{"searchText":"5","positionDetailsBean":{"lineNumber":3,"startingPosition":192,"endingPosition":193}},{"searchText":"10","positionDetailsBean":{"lineNumber":3,"startingPosition":252,"endingPosition":254}}]
+2022-11-04 10:30:18 INFO  FileContentSearching:60 - ReadFileUsingStreams :: timeElapsedLineCount 200 millis
+2022-11-04 10:30:18 INFO  FileContentSearching:62 - ==================================================================
 
 Inference on execution time with varying file size:
 
