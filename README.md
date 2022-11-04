@@ -26,7 +26,7 @@ Inputs required -> Options (1,2,3) = denotes the type of reader and FileName wit
 
 ## Sample input and output:
 
-** Note: To see the output, first enable the log statement in any one of the reader class. By default output log statement will be commented. **
+**Note: To see the output, first enable the log statement in any one of the reader class. By default output log statement will be commented**
 
 ```
 2022-11-04 10:30:14 INFO  FileContentSearching:29 - Option 1 - Run with ReadFileUsingStreams
