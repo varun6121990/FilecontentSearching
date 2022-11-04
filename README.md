@@ -24,8 +24,6 @@ FileContentSearching.java is the entry point of this standalone application.
 
 Inputs required -> Options (1,2,3) = denotes the type of reader and FileName with its full path.
 
-**For file path -> since i was working on macbook, path structure is different when compared to windows. Please follow windows file path syntax if using windows machine**
-
 ## Sample input and output:
 
 **Note: To see the output, first enable the log statement in any one of the reader class. By default output log statement will be commented**
